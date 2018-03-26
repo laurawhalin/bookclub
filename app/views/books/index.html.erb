@@ -1,9 +1,18 @@
 <h1>All Books</h1>
 
-<ul id="books">
+<%= link_to "Add Book", new_book_path, class: "new-book" %>
+<table>
+  <tr>
+    <th>Title</th><th>Author</th><th>Description</th><th>Genre</th><th>Avg. Rating</th>
+  </tr>
   <% @books.each do |book| %>
-    <li>
-      <%= book.title %>
-    </li>
+    <tr>
+      <td><%= link_to book.title, book_path(book), class: "book-title" %></td>
+      <td><%= book.author %></td>
+      <td><%= book.description %></td>
+      <td><%= book.genre %></td>
+      <td><%= book.average_rating %></td>
+      <td><%= link_to "Delete", book_path(book), method: :delete %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
