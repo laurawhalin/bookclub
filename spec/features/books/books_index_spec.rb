@@ -27,4 +27,32 @@ describe "books #index" do
       expect(page).to have_link("Delete")
     end
   end
+
+  describe "books #show" do
+    describe "they visit /books/:id from index" do
+      let!(:book) { FactoryBot.create(:book) }
+
+      before do
+        visit "/books"
+        click_link("#{book.title}")
+      end
+
+      it "displays one book" do
+        expect(page).to have_current_path(book_path(book.id))
+        expect(page).to have_content(book.title)
+        expect(page).to have_content(book.author)
+        expect(page).to have_content(book.description)
+        expect(page).to have_content(book.average_rating)
+        expect(page).to have_content(book.genre)
+      end
+
+      it "displays a link to edit the book" do
+        expect(page).to have_link("Edit Book")
+      end
+
+      it "displays a link to delete the book" do
+        expect(page).to have_link("Delete Book")
+      end
+    end
+  end
 end
